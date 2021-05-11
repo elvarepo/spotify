@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import SpotifyWebApi from "spotify-web-api-js";
 import { useStateValue } from "./StateProvider";
 import Player from "./components/Player";
@@ -9,26 +9,15 @@ import Login from "./components/Login";
 const spotify = new SpotifyWebApi();
 
 function App() {
-  // inside {} is the date we want to get from useStateValue, dispatch mean we will update to useStateValue 
   const [{ token }, dispatch] = useStateValue();
-  // const [token, setToken] = useState();
 
   useEffect(() => {
-    // Set token
     const hash = getTokenFromResponse();
-    // set hash = '' for security reason, after we get access_token, we want to clear it from browser 
     window.location.hash = "";
     let _token = hash.access_token;
-    console.log('I have a token >>> ', token)
 
     if (_token) {
-      // setToken(_token);
-      // below is how we actually connect spotify with our app, use the seAccessToken(token)
       spotify.setAccessToken(_token);
-
-      // spotify.getMe().then(user => {
-      //   console.log("USER >>> ", user)
-      // })
       dispatch({
         type: "SET_TOKEN",
         token: _token,

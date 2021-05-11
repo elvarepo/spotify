@@ -1,5 +1,3 @@
-import { findAllByDisplayValue } from "@testing-library/react";
-
 export const initialState = {
   user: null,
   playlists: [],
@@ -15,8 +13,8 @@ const reducer = (state, action) => {
   switch (action.type) {
     case "SET_USER":
       return {
-        ...state, // ... spread the state, so we dont override the state 
-        user: action.user, // then update the user 
+        ...state, 
+        user: action.user,
       };
 
     case "SET_PLAYING":
@@ -60,7 +58,7 @@ const reducer = (state, action) => {
         ...state,
         playlists: action.playlists,
       };
-    default: // default saying if nothing changes we just return state
+    default: 
       return state;
   }
 };
